@@ -1,0 +1,111 @@
+{% extends 'product/main.html' %}
+{% load static %}
+{% block body %}
+
+        <div class="container mt-5 mb-5" style="margin-top:129px !important">
+          <div class="row">
+        {% for product in products %}
+       
+        <div class="col-lg-4">
+          <img class="thumbnail" src="{{product.imageURL}}">
+          <div class="box-element product">
+            <h6><strong>{{product.name}} {{product.id}}</strong></h6>
+            <hr>
+    
+            <button data-name = "{{product.name}}" data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            
+            <a class="btn btn-outline-success" href="{{product.get_absolute_url}}">View</a>
+            
+                  <button data-product="{{product.id}}" data-action="add"
+                  class="like-product likeId{{product.id}}" id="{{product.id}}">
+                  <i class="fas fa-heart"></i> <small class="likedNum{{product.id}}">{{product.likeNumber}}</small>
+                  </button>
+            
+
+            <h4 style="display: inline-block; float: right;font-size:20px"><strong>${{product.price}}</strong></h4>
+    
+          </div>
+        </div>
+        {% endfor %}
+          </div>
+          </div>
+
+
+  {% if products.has_other_pages %}
+  <div class="container">
+    <div class="row">
+      <div class="all_products_pagination">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            
+            {% if products.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+             {% else %}
+             <li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+             {% endif %}
+
+
+          {% for pages in products.paginator.page_range %}
+            {% if products.number == pages %}
+              <li class="page-item ">
+                <a class="page-link text-light bg-secondary" href="#">{{pages}}</a>
+              </li>
+              {% else %}
+              <li class="page-item"><a class="page-link current" href="?page={{pages}}">{{pages}}</a></li>
+            {% endif %}    
+          {% endfor %}
+
+          {% if products.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{products.next_page_number}}" aria-label="Next">
+                Next
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="" aria-label="Next">
+                Next
+              </a>
+            </li>
+          {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+
+{% endblock body %}
+{% block javascript %}
+   
+<!-- <script>
+      var updateBtns = document.querySelectorAll('.update-cart')
+      for(i=0;i<updateBtns.length;i++){
+        updateBtns[i].addEventListener('click', function(e){
+          var p_id = this.dataset.product,
+          action=this.dataset.action,
+          product_name=this.dataset.name;
+          $.ajax({
+            url: "{% url 'products:addToCartWithAjax' %}",
+            dataType:'json',
+            data: {
+              productId:p_id,
+              action:action,
+            },
+            success: function(data){
+              $(".smg").text(product_name + " added to card successfully").css("visibility","visible")
+              setTimeout(function(){$(".smg").css("visibility","hidden")},2000);
+              $("#cart-total").text(data["cartQty"])
+              $(".qty" + p_id).text(data["productQty"])
+
+              
+            }
+          })
+        })
+      }
+   
+    </script> -->
+
+
+{% endblock %}

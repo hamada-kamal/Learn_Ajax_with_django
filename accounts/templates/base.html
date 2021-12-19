@@ -1,0 +1,105 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+    </script>
+    <title>souq</title>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="position:fixed;top:0;right:0;left:0;z-index:1000">
+      <a class="navbar-brand text-light" href="{% url 'products:store' %}">Souq Store</a>
+
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+        <a href="{% url 'products:liked_product' %}">
+        <button data-product="{{product.id}}" data-action="add"
+        class="btn btn-info mr-3 like-product">
+        <i class="fas fa-heart"></i> 
+        </button>
+        </a>
+
+        <form class="form-inline my-2 my-lg-0" action="{% url 'products:store' %}">
+          <input id="searchId" name="searchname" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        
+        <ul class="navbar-nav">
+          
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <strong class="text-light">{{ user.customer }}</strong>
+
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'accounts:profile' user.customer %}">View Profil</a>
+              <a class="dropdown-item" href="#">Edit Profil</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">My Orders</a>
+              <a class="dropdown-item" href="#">Track My Order</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Change Password</a>
+            </div>
+          </li>
+          {% else %}
+          <li class="nav-item mt-2 ml-5">
+            <strong class="text-light">Login</strong>
+          </li>
+          
+        {% endif %}
+
+
+            <li class="nav-item active mt-1">
+              
+              <div class="form-inline my-2 my-lg-0">
+                <a href="{% url 'products:cart' %}">
+                  <img  id="cart-icon" src="{% static 'img/cart.png' %}">
+                </a>
+                <p id="cart-total"></p>
+              </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+  {% block body  %}
+    
+ 
+
+
+  {% endblock body %}
+
+
+    <script src="{% static 'js/fontawesome-all.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+
+  
+  </body>
+
+</html>
+
+
+
+
+

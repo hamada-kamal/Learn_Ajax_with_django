@@ -1,0 +1,32 @@
+{% extends 'product/main.html' %}
+{% load static %}
+{% block body %}
+
+
+<div class="container mt-5 mb-5" style="margin-top:129px !important">
+  <div class="row">
+        <div class="col">
+              <img src="{{product.image.url}}" class="col img-fluid img-thumbnail"  alt="">
+        </div>
+
+        <div class="col align-self-center">
+            <p class="lead font-weight-bold">{{product}}</p>
+            <p class="lead">
+                  <span class="mr-1">
+                    ${{product.price}}
+                  </span>
+            </p>
+            <p class="lead font-weight-bold">Description</p>
+            
+            <!-- <form class="d-flex justify-content-left"> -->
+              <button data-name = "{{product.name}}" data-product="{{product.id}}" data-action="add" class="btn btn-dark btn-md my-0 p update-cart">Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </button>
+            <!-- </form> -->
+            
+        </div>
+
+  </div>
+  </div>
+  {% endblock body %}
+  

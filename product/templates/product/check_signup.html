@@ -1,0 +1,21 @@
+
+{% extends 'product/main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+
+<div class="container mt-5 mb-5" style="margin-top:129px !important">
+    <div class="row">
+        <div class="col">
+            <h1>sign up to checkout</h1>
+            <form method="post" class="checkout_signup">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit">signup</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
