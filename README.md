@@ -1,1 +1,1 @@
-# souq-django-ecommerce
+Learn_Ajax_with_django
